@@ -8,8 +8,21 @@ var browserify = require('browserify')
     , ngAnnotate = require('gulp-ng-annotate')
     , protractor = require('gulp-protractor').protractor
     , source = require('vinyl-source-stream')
+    , buffer = require('vinyl-buffer')
     , streamify = require('gulp-streamify')
-    , uglify = require('gulp-uglify');
+    , uglify = require('gulp-uglify')
+    , templateCache = require('gulp-angular-templatecache')
+    , concat = require('gulp-concat')
+    , addStream = require('add-stream')
+    , ngHtml2Js = require('browserify-ng-html2js')
+    , eventStream = require('event-stream')
+    , streamqueue = require('streamqueue')
+    , browserSync = require("browser-sync")
+    , jade = require('gulp-jade')
+    , concatCss = require('gulp-concat-css')
+    , header = require('gulp-header');
+
+
 
 /*
  * Useful tasks:
@@ -53,16 +66,74 @@ gulp.task('lint', function() {
 });
 
 
-gulp.task('browserify', function() {
+
+/*gulp.task('browserify', function() {
     gulp.src("./app/index.html")
         .pipe(gulp.dest("./dist/"));
 
     return browserify('./app/js/app.js', { debug: true })
         .bundle()
-        .pipe(source('app.js'))
+        .pipe(source('bundle.js'))
         .pipe(gulp.dest('./dist/js/'))
         .pipe(connect.reload());
+});*/
+
+
+/* FUNKAR
+gulp.task('browserify', function () {
+    gulp.src("./app/index.html")
+        .pipe(gulp.dest("./dist/"));
+
+    //var bs = browserify('./app/js/app.js', { debug: true }).bundle().pipe(source('bundle.js'));
+    var bs = browserify('./app/js/app.js', { debug: true }).bundle().pipe(source('app.js')).pipe(buffer());
+    //bs = gulp.src('./app/js/app.js');
+    var hs = gulp.src('./app/views/*.html').pipe(templateCache());
+
+    return eventStream.merge(bs, hs)
+        .pipe(concat('app.js'))
+        .pipe(gulp.dest('./dist/js'));
+});*/
+
+gulp.task('browserify', function () {
+
+
+    // Templates
+    gulp.src('./app/views/*.jade')
+        .pipe(jade({pretty: true}))
+        .pipe(templateCache({standalone: true}))
+        .pipe(header("module.exports = "))
+        .pipe(gulp.dest("tmp"));
+
+    // CSS
+    gulp.src('./app/css/*.css')
+        .pipe(concatCss("css/styles.css"))
+        .pipe(gulp.dest('./dist/'));
+
+
+    // Index
+    gulp.src("./app/index.jade")
+        .pipe(jade({pretty: true}))
+        .pipe(gulp.dest("./dist/"));
+
+
+    // Browserify'd script
+    var bs = browserify('./app/js/app.js', { debug: true }).bundle().pipe(source('bs.js')).pipe(buffer());
+    // Template files to script
+    /*var ts = gulp.src('./app/views/*.jade')
+        .pipe(jade({pretty: true}))
+        .pipe(templateCache({standalone: true}))
+        .pipe(header("module.exports = "));*/
+    // Bootstrap
+    var ss = gulp.src('./app/js/bootstrap.min.js');
+    // jQuery
+    var js = gulp.src('./app/js/jquery-1.11.3.min.js');
+
+    return streamqueue({ objectMode: true }, bs/*, ts, js, ss*/)
+        .pipe(concat('bundle.js'))
+        .pipe(gulp.dest('./dist/js'));
 });
+
+
 
 gulp.task('ngAnnotate', ['lint'], function() {
   return gulp.src([
@@ -83,10 +154,16 @@ gulp.task('browserify-min', ['ngAnnotate'], function() {
 
 
 gulp.task('server', ['browserify'], function() {
-  connect.server({
+  /*connect.server({
     root: './dist/',
     livereload: liveReload
-  });
+  });*/
+    browserSync.init({
+        server: {
+            baseDir: "./dist"/*,
+            middleware: [historyApiFallback()]*/
+        }
+    });
 });
 
 
@@ -107,3 +184,5 @@ gulp.task('default', ['clean'], function() {
   liveReload = false;
   gulp.start('browserify', 'browserify-min');
 });
+
+

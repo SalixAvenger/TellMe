@@ -1,19 +1,25 @@
 'use strict';
 
 
-var angular = require('angular');
+require('angular');
 require('angular-route');
+require('angular-ui-bootstrap');
 
-var app = angular.module('TellME', [ 'ngRoute' ]);
+var app = angular.module('TellME', [
+    'ngRoute',
+    'ui.bootstrap',
+    require('../../tmp/templates').name,
+    require('./controller').name
+]);
 
-app.constant('VERSION', require('../../package.json').version);
+//app.constant('VERSION', require('../../package.json').version);
 
 require('./controller');
 
 app.config(function($routeProvider) {
 
     $routeProvider.when('/', {
-            templateUrl: 'views/home.template.html',
+            templateUrl: 'home.template.html',
             controller: 'HomeCtrl'
         })
         /*.when('/list', {

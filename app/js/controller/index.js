@@ -1,5 +1,6 @@
 'use strict';
 
-var app = require('angular').module('TellME');
-
-app.controller('HomeCtrl', require('./home.controller'));
+module.exports = angular.module('TellME.controllers', [])
+    .controller('HomeCtrl', require('./home.controller'))
+    .controller('DevicesCtrl', require('./listDevices.controller'))
+    .directive('listDevicesDirective', require('./listDevices.directive'));
