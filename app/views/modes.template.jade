@@ -1,0 +1,25 @@
+div
+    .panel.panel-warning
+        .panel-heading
+            h3.panel-title Lägen
+        .panel-body.modes
+            div.col-md-3
+                div(data-ng-click="modesController.changeMode('film')")
+                    i.fa.fa-film
+                    br
+                    span Film
+            div.col-md-3
+                div(data-ng-click="modesController.changeMode('evening')")
+                    i.fa.fa-moon-o
+                    br
+                    span Kväll
+            div.col-md-3
+                div(data-ng-click="modesController.changeMode('night')")
+                    i.fa.fa-clock-o
+                    br
+                    span Natt
+            div.col-md-3
+                div(data-ng-click="modesController.changeMode('off')")
+                    i.fa.fa-power-off
+                    br
+                    span Av
