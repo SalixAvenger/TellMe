@@ -1,0 +1,52 @@
+div(ng-show="weatherController.currentWeatherData.currentTemp")
+    .panel.panel-info
+        .panel-heading
+            h3.panel-title Väder
+        .panel-body
+
+            //img(src="img/weather/{{weatherController.currentWeatherData.currentCloud}}.svg")
+            div.dateRow
+                span.time {{weatherController.time | date:'HH:mm:ss'}}
+                span.date {{weatherController.time | date:'EEEE d MMMM'}}
+            div.weatherRow
+                .weatherIcon.metIcon(data-icon="{{weatherController.currentWeatherData.currentIcon}}")
+                .weatherTemp {{weatherController.currentWeatherData.currentTemp}}
+                    span.metIcon(data-icon="*")
+                .weatherWind
+                    ul.list-unstyled
+                        li
+                            span.metIcon(data-icon="F")
+                            i.glyphicon.glyphicon-arrow-up(style="transform: rotate({{weatherController.currentWeatherData.currentWindDirection}}deg)")
+                            |  {{weatherController.currentWeatherData.currentWindSpeed}} m/s
+                        li Nederbörd: {{weatherController.currentWeatherData.currentPrecipitation}} mm
+            div.weatherLater
+                | Om 8 timmar: {{weatherController.weatherData[6].t}}
+                span.metIcon(data-icon="*")
+                i.glyphicon.glyphicon-arrow-up(style="transform: rotate({{weatherController.weatherData[6].wd}}deg)")
+                |  {{weatherController.weatherData[6].ws}} m/s
+                span.metIcon(data-icon="Q")
+                |  {{weatherController.weatherData[6].pit}} mm
+            div.weatherTomorrow
+                | Om 24 timmar: {{weatherController.weatherData[24].t}}
+                span.metIcon(data-icon="*")
+                i.glyphicon.glyphicon-arrow-up(style="transform: rotate({{weatherController.weatherData[24].wd}}deg)")
+                |  {{weatherController.weatherData[24].ws}} m/s
+                span.metIcon(data-icon="Q")
+                |  {{weatherController.weatherData[24].pit}} mm
+            //div.weatherForecast.clearfix
+                //li(ng-repeat="wd in weatherController.weatherData" style="margin-left: {{wd.t * 4 -20}}px") {{wd.t}}
+                div.forecastDot(ng-repeat="wd in weatherController.weatherData track by $index" style="top: {{wd.t*3}}px; left:{{$index}}%;")
+
+
+
+
+
+            //ul
+                li {{weatherController.currentWeatherData.currentTemp}}°C
+                li Moln: {{weatherController.currentWeatherData.currentCloudCoverage}} /8
+                li Vind: {{weatherController.currentWeatherData.currentWindSpeed}} m/s
+                li
+                    i.glyphicon.glyphicon-arrow-up(style="transform: rotate({{weatherController.currentWeatherData.currentWindDirection}}deg)")
+                    |  {{weatherController.currentWeatherData.currentWindDirection}}°
+                    //img(src="http://www.iconsdb.com/icons/preview/white/arrow-135-xl.png" style="transform: rotate({{weatherController.currentWeatherData.currentWindDirection}}deg)")
+                li {{weatherController.currentWeatherData.currentPrecipitation}} mm

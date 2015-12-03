@@ -1,11 +1,10 @@
-.container(ng-repeat='device in deviceController.devices track by $index')
-    .col-md-4
-        .panel.panel-success
-            .panel-heading
-                h3.panel-title {{device}}
-            .panel-body
-                //div {{$index}} - {{deviceController.radioModel[$index]}}
-                hr
-                div.btn-group(role='group')
-                    button.btn.btn-default(type='button', ng-model="deviceController.radioModel[$index]", uib-btn-radio="'OFF'") Off
-                    button.btn.btn-default(type='button', ng-model="deviceController.radioModel[$index]", uib-btn-radio="'ON'") On
+div(ng-repeat='device in deviceController.devices track by $index')
+    .panel.panel-success
+        .panel-heading
+            h3.panel-title {{device.name}}
+        .panel-body
+            //div {{$index}} - {{deviceController.radioModel[$index]}}
+            hr
+            div.btn-group(role='group')
+                button.btn.btn-default.btn-lg(type='button', ng-model="deviceController.radioModel[$index]", uib-btn-radio="false", ng-click="deviceController.updateDevice(device, $index)") Off
+                button.btn.btn-default.btn-lg(type='button', ng-model="deviceController.radioModel[$index]", uib-btn-radio="true", ng-click="deviceController.updateDevice(device, $index)") On

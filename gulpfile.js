@@ -126,9 +126,9 @@ gulp.task('browserify', function () {
     // Bootstrap
     var ss = gulp.src('./app/js/bootstrap.min.js');
     // jQuery
-    var js = gulp.src('./app/js/jquery-1.11.3.min.js');
+    var js = gulp.src('./app/scripts/angular-locale_sv-se.js');
 
-    return streamqueue({ objectMode: true }, bs/*, ts, js, ss*/)
+    return streamqueue({ objectMode: true }, bs, js)
         .pipe(concat('bundle.js'))
         .pipe(gulp.dest('./dist/js'));
 });
@@ -168,15 +168,23 @@ gulp.task('server', ['browserify'], function() {
 
 
 gulp.task('watch', function() {
-  gulp.start('server');
-  gulp.watch([
-    'app/js/**/*.js',
-    '!app/js/third-party/**',
-    'test/**/*.js'
-  ], ['fast']);
+    gulp.src(["app/fonts/*"])
+        .pipe(gulp.dest("dist/fonts"));
+    gulp.src(["app/img/**/*"])
+        .pipe(gulp.dest("dist/img"));
+
+
+    gulp.start('server');
+    gulp.watch([
+        'app/js/**/*.js',
+        '!app/js/third-party/**',
+        'test/**/*.js',
+        'app/views/*.jade',
+        'app/css/*'
+    ], ['fast']);
 });
 
-gulp.task('fast', ['clean'], function() {
+gulp.task('fast', function() {
   gulp.start('browserify');
 });
 

@@ -4,18 +4,19 @@
 require('angular');
 require('angular-route');
 require('angular-ui-bootstrap');
+var _ = require('underscore');
 
 var app = angular.module('TellME', [
     'ngRoute',
     'ui.bootstrap',
     require('../../tmp/templates').name,
-    require('./controller').name
+    require('./controller').name,
+    require('./service').name
 ]);
 
-//app.constant('VERSION', require('../../package.json').version);
+app.constant('_', _);
 
-require('./controller');
-
+//require('./controller');
 app.config(function($routeProvider) {
 
     $routeProvider.when('/', {
@@ -30,3 +31,4 @@ app.config(function($routeProvider) {
             redirectTo: '/'
         });
 });
+

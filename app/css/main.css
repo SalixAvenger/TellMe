@@ -11,3 +11,99 @@ button:hover
     outline:0px !important;
     -webkit-appearance:none;
 }
+
+@font-face {
+    font-family: 'MeteoconsRegular';
+    src: url('../fonts/meteocons-webfont.eot');
+    src: url('../fonts/meteocons-webfont.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/meteocons-webfont.woff') format('woff'),
+    url('../fonts/meteocons-webfont.ttf') format('truetype'),
+    url('../fonts/meteocons-webfont.svg#MeteoconsRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.metIcon:before {
+    font-family: 'MeteoconsRegular';
+    content: attr(data-icon);
+}
+.weatherIcon {
+    font-size: 7em;
+    line-height: 1em;
+}
+.weatherTemp {
+    font-size: 4em;
+    line-height: 1em;
+    padding: 15px 0 0 10px;
+}
+.weatherRow {
+    position: relative;
+}
+.weatherRow > div {
+    display: inline-block;
+    vertical-align: top;
+}
+.weatherWind {
+    padding:15px 0 0 0;
+}
+
+.weatherForecast {
+    position: relative;
+    min-height: 40px;
+}
+
+.dateRow {
+    color: #fff;
+}
+.dateRow span {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.dateRow .date{
+    padding: 10px 0 0 10px;
+    font-size: 1.2em;
+}
+.dateRow .time{
+    top: 0;
+    font-size: 3em;
+}
+
+.modes > div {
+    padding: 0 7.5px;
+}
+.modes > div > div {
+    padding: 20px 10px;
+    text-align: center;
+    cursor: pointer;
+    background-color: rgba(255,255,255,0.2);
+}
+.modes span {
+    font-size: 3em;
+}
+.modes i {
+    font-size: 6em;
+}
+
+.weatherLater {
+    font-size: 1.5em;
+    padding: 20px 0 10px 0;
+}
+
+.weatherTomorrow {
+    font-size: 1em;
+}
+
+.weatherLater .metIcon, .weatherTomorrow .metIcon,
+.weatherLater .glyphicon, .weatherTomorrow .glyphicon {
+    padding: 0 5px;
+}
+
+.forecastDot {
+    position: absolute;
+    width:3px;
+    height:3px;
+    border-radius:3px;
+    border:none;
+    background-color:#5bc0de;
+}

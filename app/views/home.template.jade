@@ -1,1 +1,47 @@
-.jumbotron Styr belysningen {{hej}}
+.jumbotron
+    h2
+        small
+            i.glyphicon.glyphicon-cog
+        |  Mission Control
+        small
+            i.glyphicon.glyphicon-cog
+div
+    .row
+        .container.col-md-12
+            div
+                .panel.panel-warning
+                    .panel-heading
+                        h3.panel-title Lägen
+                    .panel-body.modes
+                        div.col-md-3
+                            div
+                                i.fa.fa-film
+                                br
+                                span Film
+                        div.col-md-3
+                            div
+                                i.fa.fa-moon-o
+                                br
+                                span Kväll
+                        div.col-md-3
+                            div
+                                i.fa.fa-clock-o
+                                br
+                                span Natt
+                        div.col-md-3
+                            div
+                                i.fa.fa-power-off
+                                br
+                                span Av
+    .row
+        .container.col-md-6
+            list-devices-directive
+        .container.col-md-6
+            weather-directive
+            div
+                .panel.panel-warning
+                    .panel-heading
+                        h3.panel-title Nästa tur
+                    .panel-body
+                        p Påvelund
+                        p Käringberget
