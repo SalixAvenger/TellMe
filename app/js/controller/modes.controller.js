@@ -10,6 +10,7 @@ module.exports = ['$scope', '$http', '_', 'APIService', function($scope, $http, 
         APIService.turnOn(device)
             .then(function(results){
                 console.log(results);
+
             });
     }
 

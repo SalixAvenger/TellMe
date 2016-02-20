@@ -24,10 +24,10 @@ module.exports = ['WeatherService', '_', '$interval', function(WeatherService, _
 
 
     function updateWeather() {
-        console.log("getting weather");
+        //console.log("getting weather");
         WeatherService.getWeather()
             .then(function(results){
-                console.log(results);
+                //console.log(results);
                 var firstInList = results[0];//_.find(results, function(o){return true;});
                 vm.weatherData = results;
                 vm.wdlength = vm.weatherData.length;
@@ -66,7 +66,7 @@ module.exports = ['WeatherService', '_', '$interval', function(WeatherService, _
                 }
 
 
-                console.dir(vm.currentWeatherData);
+                //console.dir(vm.currentWeatherData);
             });
     }
 

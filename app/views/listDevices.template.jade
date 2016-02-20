@@ -6,5 +6,5 @@ div(ng-repeat='device in deviceController.devices track by $index')
             //div {{$index}} - {{deviceController.radioModel[$index]}}
             hr
             div.btn-group(role='group')
-                button.btn.btn-default.btn-lg(type='button', ng-model="deviceController.radioModel[$index]", uib-btn-radio="false", ng-click="deviceController.updateDevice(device, $index)") Off
                 button.btn.btn-default.btn-lg(type='button', ng-model="deviceController.radioModel[$index]", uib-btn-radio="true", ng-click="deviceController.updateDevice(device, $index)") On
+                button.btn.btn-default.btn-lg(type='button', ng-model="deviceController.radioModel[$index]", uib-btn-radio="false", ng-click="deviceController.updateDevice(device, $index)") Off

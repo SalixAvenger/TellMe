@@ -1,6 +1,7 @@
 'use strict';
 
-module.exports = ['$scope', '$http', '_', 'APIService', function($scope, $http, _, APIService){
+module.exports = ['$scope', '$http', '_', 'APIService', '$rootScope',
+    function($scope, $http, _, APIService, $rootScope){
 
     var vm = this;
 
@@ -46,6 +47,15 @@ module.exports = ['$scope', '$http', '_', 'APIService', function($scope, $http, 
         }
 
     }
+
+    $rootScope.$on('APIService::updateDevice', function(event, args) {
+        vm.devices = args;
+        vm.radioModel = _.map(vm.devices, function (d) {
+            return d.on;
+        });
+        console.log("Update devices");
+        console.dir(args);
+    });
 
     vm.start();
 }];
